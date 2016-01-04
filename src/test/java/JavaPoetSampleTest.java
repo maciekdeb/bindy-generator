@@ -5,7 +5,7 @@ import org.junit.Test;
 import javax.lang.model.element.Modifier;
 
 /**
- * Created by maciej.debowski on 2016-01-04.
+ * Created by maciekdeb on 2016-01-04.
  */
 public class JavaPoetSampleTest {
 
