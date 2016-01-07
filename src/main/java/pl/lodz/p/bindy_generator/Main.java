@@ -5,6 +5,7 @@ import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
 import org.apache.camel.dataformat.bindy.annotation.CsvRecord;
+import org.apache.camel.dataformat.bindy.annotation.DataField;
 
 import javax.lang.model.element.Modifier;
 import java.io.IOException;
@@ -39,7 +40,11 @@ public class Main {
         List<FieldSpec> fieldSpecs = new ArrayList<>();
         for (String name : fieldsNames) {
             FieldSpec field = FieldSpec.builder(String.class, name)
-                    .addModifiers(Modifier.PRIVATE, Modifier.FINAL)
+                    .addModifiers(Modifier.PRIVATE)
+                    .addAnnotation(AnnotationSpec
+                            .builder(DataField.class)
+                            .addMember("pos", "$L", 4)
+                            .build())
                     .build();
             fieldSpecs.add(field);
         }
