@@ -36,4 +36,10 @@ public class Config {
         return PROPERTIES.getProperty(key, defaultValue);
     }
 
+    public String generationMark() {
+        return "Class automatically generated. Any change can be overwritten.\n"
+                + "Model representation ready to use with Apache Camel Bindy.\n"
+                + String.format("\n%s %s\n", PROPERTIES.getProperty("artifactId"), PROPERTIES.getProperty("version"));
+    }
+
 }

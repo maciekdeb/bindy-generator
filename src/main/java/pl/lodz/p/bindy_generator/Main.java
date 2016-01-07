@@ -1,7 +1,5 @@
 package pl.lodz.p.bindy_generator;
 
-import com.beust.jcommander.JCommander;
-import com.beust.jcommander.Parameter;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
@@ -9,6 +7,11 @@ import com.squareup.javapoet.TypeSpec;
 import org.apache.camel.dataformat.bindy.annotation.CsvRecord;
 
 import javax.lang.model.element.Modifier;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,44 +21,49 @@ public class Main {
 
     public static final Config CONFIG = Config.getInstance();
 
-    static class JCommanderParse {
-        @Parameter(required = true, description = "parameters")
-        public List<String> parameters;
+    public static void main(String[] args) throws Exception {
+        CommandParser jc = new CommandParser(args);
+
+        Path path = Paths.get(jc.getFileName());
+        String firstLine = Files.lines(path).findFirst().get();
+        List<String> fieldsNames = Utils.prepareFieldNames(jc.skipFirstLine, jc.separator, firstLine);
+        TypeSpec classNode = prepareClassNode(jc.getClassName(), prepareFields(fieldsNames));
+        prepareJavaFile(jc.getPackageName(), classNode);
+
+        if (false) {
+            jc.getJCommander().usage();
+        }
     }
 
-    public static void main(String[] args) throws Exception {
-        JCommanderParse jc = new JCommanderParse();
-        new JCommander(jc, args);
+    public static List<FieldSpec> prepareFields(List<String> fieldsNames) {
+        List<FieldSpec> fieldSpecs = new ArrayList<>();
+        for (String name : fieldsNames) {
+            FieldSpec field = FieldSpec.builder(String.class, name)
+                    .addModifiers(Modifier.PRIVATE, Modifier.FINAL)
+                    .build();
+            fieldSpecs.add(field);
+        }
+        return fieldSpecs;
+    }
 
-        String className = "Order";
-        String packageName = "com.example.helloworld";
-
-        FieldSpec field1 = FieldSpec.builder(String.class, "field1")
-                .addModifiers(Modifier.PRIVATE, Modifier.FINAL)
-                .build();
+    public static TypeSpec prepareClassNode(String className, List<FieldSpec> fields) {
 
         AnnotationSpec csvRecord = AnnotationSpec.builder(CsvRecord.class)
                 .addMember("separator", "$S", ",")
                 .build();
 
-        TypeSpec classNode = TypeSpec.classBuilder(className)
+        TypeSpec.Builder classNode = TypeSpec.classBuilder(className)
                 .addModifiers(Modifier.PUBLIC)
                 .addAnnotation(csvRecord)
-                .addField(field1)
-                .addField(field1)
-                .addJavadoc(generationMark())
-                .build();
+                .addFields(fields)
+                .addJavadoc(CONFIG.generationMark());
 
-        JavaFile javaFile = JavaFile.builder(packageName, classNode)
-                .build();
-
-        javaFile.writeTo(System.out);
+        return classNode.build();
     }
 
-    public static String generationMark() {
-        return "Class automatically generated. Any change can be overwritten.\n"
-                + "Model representation ready to use with Apache Camel Bindy.\n"
-                + String.format("\n%s %s\n", CONFIG.getProperty("artifactId"), CONFIG.getProperty("version"));
+    private static void prepareJavaFile(String packageName, TypeSpec classNode) throws IOException {
+        JavaFile javaFile = JavaFile.builder(packageName, classNode).skipJavaLangImports(true).build();
+        javaFile.writeTo(System.out);
     }
 
 
