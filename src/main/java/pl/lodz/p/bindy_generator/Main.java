@@ -23,53 +23,25 @@ public class Main {
     public static final Config CONFIG = Config.getInstance();
 
     public static void main(String[] args) throws Exception {
-        CommandParser jc = new CommandParser(args);
+        Commands jc = new Commands(args);
 
         Path path = Paths.get(jc.getFileName());
         String firstLine = Files.lines(path).findFirst().get();
+
+
         List<String> fieldsNames = Utils.prepareFieldNames(jc.skipFirstLine, jc.separator, firstLine);
-        TypeSpec classNode = prepareClassNode(jc.getClassName(), prepareFields(fieldsNames));
-        prepareJavaFile(jc.getPackageName(), classNode);
+
+        TypeSpec classNode = new CsvModelBuilder(jc.getClassName())
+                .withField(String.class, "fieldMy")
+                .build();
+
+        Utils.prepareJavaFile(jc.getPackageName(), classNode, ".");
 
         if (false) {
             jc.getJCommander().usage();
         }
     }
 
-    public static List<FieldSpec> prepareFields(List<String> fieldsNames) {
-        List<FieldSpec> fieldSpecs = new ArrayList<>();
-        for (String name : fieldsNames) {
-            FieldSpec field = FieldSpec.builder(String.class, name)
-                    .addModifiers(Modifier.PRIVATE)
-                    .addAnnotation(AnnotationSpec
-                            .builder(DataField.class)
-                            .addMember("pos", "$L", 4)
-                            .build())
-                    .build();
-            fieldSpecs.add(field);
-        }
-        return fieldSpecs;
-    }
-
-    public static TypeSpec prepareClassNode(String className, List<FieldSpec> fields) {
-
-        AnnotationSpec csvRecord = AnnotationSpec.builder(CsvRecord.class)
-                .addMember("separator", "$S", ",")
-                .build();
-
-        TypeSpec.Builder classNode = TypeSpec.classBuilder(className)
-                .addModifiers(Modifier.PUBLIC)
-                .addAnnotation(csvRecord)
-                .addFields(fields)
-                .addJavadoc(CONFIG.generationMark());
-
-        return classNode.build();
-    }
-
-    private static void prepareJavaFile(String packageName, TypeSpec classNode) throws IOException {
-        JavaFile javaFile = JavaFile.builder(packageName, classNode).skipJavaLangImports(true).build();
-        javaFile.writeTo(System.out);
-    }
 
 
 }

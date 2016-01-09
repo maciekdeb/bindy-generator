@@ -17,7 +17,7 @@ public class CommonsTest {
     public void testCommons() {
         String origal = "jedeN dWA TRZY";
         String expected = "jedenDwaTrzy";
-        Assert.assertEquals(expected, Utils.prepareJavaValidMethodName(origal));
+        Assert.assertEquals(expected, Utils.prepareJavaConventionName(origal));
     }
 
     @Test

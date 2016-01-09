@@ -1,9 +1,15 @@
 package pl.lodz.p.bindy_generator;
 
+import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.TypeSpec;
 import org.apache.commons.lang3.text.WordUtils;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +30,7 @@ public class Utils {
         return ((T) method.getDefaultValue());
     }
 
-    public static String prepareJavaValidMethodName(String phrase) {
+    public static String prepareJavaConventionName(String phrase) {
         String name = WordUtils.capitalizeFully(phrase).replaceAll(WHITE_SPACE, EMPTY_STRING);
         return WordUtils.uncapitalize(name);
     }
@@ -39,9 +45,14 @@ public class Utils {
                     .collect(Collectors.toList());
         } else {
             return stream
-                    .map(Utils::prepareJavaValidMethodName)
+                    .map(Utils::prepareJavaConventionName)
                     .collect(Collectors.toList());
         }
+    }
+
+    public static void prepareJavaFile(String packageName, TypeSpec classNode, String path) throws IOException {
+        JavaFile javaFile = JavaFile.builder(packageName, classNode).skipJavaLangImports(true).build();
+        javaFile.writeTo(Paths.get(path));
     }
 
 }

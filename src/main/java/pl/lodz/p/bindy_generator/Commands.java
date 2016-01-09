@@ -9,7 +9,9 @@ import java.util.List;
 /**
  * Created by maciek on 06/01/16.
  */
-public class CommandParser {
+public class Commands {
+
+    private JCommander jCommander;
 
     @Parameter(required = true, description = "parameters")
     private List<String> parameters;
@@ -20,13 +22,35 @@ public class CommandParser {
     @Parameter(names = {"-sfl", "--skipFirstLine"}, description = "Skip the first line of CSV.")
     public boolean skipFirstLine;
 
-    private JCommander jCommander;
+    @Parameter(names = "-crlf")
+    public String crlf;
 
-    public CommandParser(String[] arguments) {
+    @Parameter(names = "-generateHeaderColumns")
+    public boolean generateHeaderColumns;
+
+    @Parameter(names = "-autospanLine")
+    public boolean autospanLine;
+
+    @Parameter(names = "-isOrdered")
+    public boolean isOrdered;
+
+    @Parameter(names = "-quote")
+    public String quote;
+
+    @Parameter(names = "-quoting")
+    public boolean quoting;
+
+    public Commands(String[] arguments) {
         jCommander = new JCommander(this, arguments);
         jCommander.setProgramName("bindy-generator");
         try {
             skipFirstLine = Utils.getAnnotationDefault(CsvRecord.class, "skipFirstLine");
+            crlf = Utils.getAnnotationDefault(CsvRecord.class, "crlf");
+            generateHeaderColumns = Utils.getAnnotationDefault(CsvRecord.class, "generateHeaderColumns");
+            autospanLine = Utils.getAnnotationDefault(CsvRecord.class, "autospanLine");
+            isOrdered = Utils.getAnnotationDefault(CsvRecord.class, "isOrdered");
+            quote = Utils.getAnnotationDefault(CsvRecord.class, "quote");
+            quoting = Utils.getAnnotationDefault(CsvRecord.class, "quoting");
         } catch (Exception e) {
             e.printStackTrace();
         }
