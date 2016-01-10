@@ -1,1 +1,1 @@
-# bindy-generator
+# Apache Camel Bindy Generator
