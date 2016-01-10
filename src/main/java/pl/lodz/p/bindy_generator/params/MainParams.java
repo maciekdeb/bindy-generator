@@ -1,5 +1,6 @@
 package pl.lodz.p.bindy_generator.params;
 
+import com.beust.jcommander.DynamicParameter;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParametersDelegate;
@@ -21,8 +22,18 @@ public class MainParams {
     @Parameter(required = true, description = "parameters")
     private List<String> parameters;
 
+    /**
+     * Includes parameters for CsvRecord annotation like separator, skipFirstLine etc.
+     */
     @ParametersDelegate
     public CsvRecordParams csvRecordParams = new CsvRecordParams();
+
+    /**
+     * Represents dynamic sets describing fields parameters (-f1=name(field1),pos(2))
+     */
+    @DynamicParameter(names = "-f")
+    private Map<String, String> fields = new HashMap<>();
+
 
     public MainParams(String[] arguments) {
         jCommander = new JCommander(this, arguments);
@@ -72,7 +83,7 @@ public class MainParams {
         if (aClass.equals(CsvRecord.class)) {
             annotationsParams = csvRecordParams;
         }
-        return annotationsParams.getAnnotationsMembers();
+        return (annotationsParams != null ? annotationsParams.getAnnotationsMembers() : null);
     }
 
     public JCommander getJCommander() {
