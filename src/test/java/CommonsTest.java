@@ -30,4 +30,10 @@ public class CommonsTest {
         System.out.println(Utils.prepareFieldNames(false, ",", "id, price, product name"));
     }
 
+    @Test
+    public void testBoolean(){
+        Object o = 4;
+        System.out.println(o instanceof Number);
+    }
+
 }

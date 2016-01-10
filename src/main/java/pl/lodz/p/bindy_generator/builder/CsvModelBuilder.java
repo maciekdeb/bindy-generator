@@ -1,10 +1,13 @@
-package pl.lodz.p.bindy_generator;
+package pl.lodz.p.bindy_generator.builder;
 
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.TypeSpec;
 import org.apache.camel.dataformat.bindy.annotation.CsvRecord;
 import org.apache.camel.dataformat.bindy.annotation.DataField;
+import pl.lodz.p.bindy_generator.Commands;
+import pl.lodz.p.bindy_generator.Config;
+import pl.lodz.p.bindy_generator.factory.AnnotationsFactory;
 
 import javax.lang.model.element.Modifier;
 
@@ -13,14 +16,14 @@ import javax.lang.model.element.Modifier;
  */
 public class CsvModelBuilder {
 
+    private static final Class CLASS_ANNOTATION = CsvRecord.class;
+
     private TypeSpec.Builder csvModelBuilder;
 
-    public CsvModelBuilder(String name) {
-        AnnotationSpec csvRecord = AnnotationSpec.builder(CsvRecord.class)
-                .addMember("separator", "$S", ",")
-                .build();
+    public CsvModelBuilder(Commands jc) {
+        AnnotationSpec csvRecord = AnnotationsFactory.getAnnotation(CLASS_ANNOTATION, jc);
 
-        this.csvModelBuilder = TypeSpec.classBuilder(name)
+        this.csvModelBuilder = TypeSpec.classBuilder(jc.getClassName())
                 .addModifiers(Modifier.PUBLIC)
                 .addAnnotation(csvRecord)
                 .addJavadoc(Config.getInstance().generationMark());

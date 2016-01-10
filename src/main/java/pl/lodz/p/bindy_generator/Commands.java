@@ -4,7 +4,9 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import org.apache.camel.dataformat.bindy.annotation.CsvRecord;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by maciek on 06/01/16.
@@ -43,17 +45,6 @@ public class Commands {
     public Commands(String[] arguments) {
         jCommander = new JCommander(this, arguments);
         jCommander.setProgramName("bindy-generator");
-        try {
-            skipFirstLine = Utils.getAnnotationDefault(CsvRecord.class, "skipFirstLine");
-            crlf = Utils.getAnnotationDefault(CsvRecord.class, "crlf");
-            generateHeaderColumns = Utils.getAnnotationDefault(CsvRecord.class, "generateHeaderColumns");
-            autospanLine = Utils.getAnnotationDefault(CsvRecord.class, "autospanLine");
-            isOrdered = Utils.getAnnotationDefault(CsvRecord.class, "isOrdered");
-            quote = Utils.getAnnotationDefault(CsvRecord.class, "quote");
-            quoting = Utils.getAnnotationDefault(CsvRecord.class, "quoting");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public String getFileName() {
@@ -92,6 +83,19 @@ public class Commands {
             return className.substring(lastDot + 1);
         }
         return "";
+    }
+
+    public Map<String, Object> getAnnotationsMembersCsvRecord(){
+        Map<String, Object> result = new HashMap<>();
+        result.put("separator", separator);
+        result.put("skipFirstLine", skipFirstLine);
+        result.put("crlf", crlf);
+        result.put("generateHeaderColumns", generateHeaderColumns);
+        result.put("autospanLine", autospanLine);
+        result.put("isOrdered", isOrdered);
+        result.put("quote", quote);
+        result.put("quoting", quoting);
+        return result;
     }
 
     public JCommander getJCommander() {

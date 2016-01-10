@@ -25,8 +25,13 @@ public class Utils {
     public static final String WHITE_SPACE = "\\s+";
 
     @SuppressWarnings("unchecked")
-    public static <T> T getAnnotationDefault(Class<? extends Annotation> annotationClass, String element) throws Exception {
-        Method method = annotationClass.getMethod(element, (Class[]) null);
+    public static <T> T getAnnotationDefault(Class<? extends Annotation> annotationClass, String element) {
+        Method method = null;
+        try {
+            method = annotationClass.getMethod(element, (Class[]) null);
+        } catch (NoSuchMethodException e) {
+            return null;
+        }
         return ((T) method.getDefaultValue());
     }
 
