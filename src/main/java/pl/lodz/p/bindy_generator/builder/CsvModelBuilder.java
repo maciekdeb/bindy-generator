@@ -5,8 +5,8 @@ import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.TypeSpec;
 import org.apache.camel.dataformat.bindy.annotation.CsvRecord;
 import org.apache.camel.dataformat.bindy.annotation.DataField;
-import pl.lodz.p.bindy_generator.Commands;
-import pl.lodz.p.bindy_generator.Config;
+import pl.lodz.p.bindy_generator.params.MainParams;
+import pl.lodz.p.bindy_generator.util.Config;
 import pl.lodz.p.bindy_generator.factory.AnnotationsFactory;
 
 import javax.lang.model.element.Modifier;
@@ -20,7 +20,7 @@ public class CsvModelBuilder {
 
     private TypeSpec.Builder csvModelBuilder;
 
-    public CsvModelBuilder(Commands jc) {
+    public CsvModelBuilder(MainParams jc) {
         AnnotationSpec csvRecord = AnnotationsFactory.getAnnotation(CLASS_ANNOTATION, jc);
 
         this.csvModelBuilder = TypeSpec.classBuilder(jc.getClassName())

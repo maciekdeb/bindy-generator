@@ -1,8 +1,8 @@
 package pl.lodz.p.bindy_generator.factory;
 
 import com.squareup.javapoet.AnnotationSpec;
-import pl.lodz.p.bindy_generator.Commands;
-import pl.lodz.p.bindy_generator.Utils;
+import pl.lodz.p.bindy_generator.params.MainParams;
+import pl.lodz.p.bindy_generator.util.Utils;
 
 import java.util.Map;
 
@@ -11,15 +11,15 @@ import java.util.Map;
  */
 public class AnnotationsFactory {
 
-    public static AnnotationSpec getAnnotation(Class c, Commands command) {
-        AnnotationSpec.Builder annotationBuilder = AnnotationSpec.builder(c);
+    public static AnnotationSpec getAnnotation(Class aClass, MainParams command) {
+        AnnotationSpec.Builder annotationBuilder = AnnotationSpec.builder(aClass);
 
-        Map<String, Object> annotationsMembersCsvRecord = command.getAnnotationsMembersCsvRecord();
+        Map<String, Object> annotationsMembersCsvRecord = command.getAnnotationMembers(aClass);
         for (Map.Entry<String, Object> entry : annotationsMembersCsvRecord.entrySet()) {
             String key = entry.getKey();
             Object value = entry.getValue();
 
-            Object defaultValue = Utils.getAnnotationDefault(c, key);
+            Object defaultValue = Utils.getAnnotationDefault(aClass, key);
 
             if (value != null && (defaultValue == null || !defaultValue.equals(value))) {
                 if (value instanceof String) {

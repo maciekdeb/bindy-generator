@@ -1,4 +1,4 @@
-package pl.lodz.p.bindy_generator;
+package pl.lodz.p.bindy_generator.util;
 
 import java.io.IOException;
 import java.io.InputStream;

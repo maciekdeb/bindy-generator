@@ -1,14 +1,12 @@
-package pl.lodz.p.bindy_generator;
+package pl.lodz.p.bindy_generator.util;
 
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
 import org.apache.commons.lang3.text.WordUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;

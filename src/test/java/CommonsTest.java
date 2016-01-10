@@ -1,7 +1,7 @@
 import junit.framework.Assert;
 import org.apache.camel.dataformat.bindy.annotation.CsvRecord;
 import org.junit.Test;
-import pl.lodz.p.bindy_generator.Utils;
+import pl.lodz.p.bindy_generator.util.Utils;
 
 /**
  * Created by maciek on 06/01/16.
