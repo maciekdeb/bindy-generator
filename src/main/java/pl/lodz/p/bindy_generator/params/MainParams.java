@@ -5,8 +5,7 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParametersDelegate;
 import org.apache.camel.dataformat.bindy.annotation.CsvRecord;
-import pl.lodz.p.bindy_generator.params.AnnotationsParams;
-import pl.lodz.p.bindy_generator.params.CsvRecordParams;
+import org.apache.camel.dataformat.bindy.format.IntegerFormat;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,13 +25,13 @@ public class MainParams {
      * Includes parameters for CsvRecord annotation like separator, skipFirstLine etc.
      */
     @ParametersDelegate
-    public CsvRecordParams csvRecordParams = new CsvRecordParams();
+    public CsvRecordClassParams csvRecordParams = new CsvRecordClassParams();
 
     /**
      * Represents dynamic sets describing fields parameters (-f1=name(field1),pos(2))
      */
     @DynamicParameter(names = "-f")
-    private Map<String, String> fields = new HashMap<>();
+    private Map<Integer, String> fields = new HashMap<>();
 
 
     public MainParams(String[] arguments) {
@@ -79,11 +78,9 @@ public class MainParams {
     }
 
     public Map<String, Object> getAnnotationMembers(Class aClass) {
-        AnnotationsParams annotationsParams = null;
         if (aClass.equals(CsvRecord.class)) {
-            annotationsParams = csvRecordParams;
-        }
-        return (annotationsParams != null ? annotationsParams.getAnnotationsMembers() : null);
+            return csvRecordParams.getAnnotationsMembers();
+        } else return null;
     }
 
     public JCommander getJCommander() {

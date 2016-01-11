@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by maciek on 10/01/16.
  */
-public class CsvRecordParams implements AnnotationsParams {
+public class CsvRecordClassParams implements AnnotationsClassParams {
 
     @Parameter(required = true, names = {"-s", "--separator"}, description = "Skip the first line of CSV.")
     public String separator;
