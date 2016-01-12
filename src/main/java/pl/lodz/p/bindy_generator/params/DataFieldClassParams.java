@@ -1,9 +1,11 @@
 package pl.lodz.p.bindy_generator.params;
 
+import org.apache.camel.dataformat.bindy.annotation.DataField;
+import org.apache.camel.dataformat.bindy.format.NumberPatternFormat;
+import pl.lodz.p.bindy_generator.util.Utils;
+
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by maciek on 11/01/16.
@@ -11,6 +13,8 @@ import java.util.regex.Pattern;
 public class DataFieldClassParams implements AnnotationsPropertyParams {
 
     private Map<Integer, String> parameters;
+
+    private Class aClass = DataField.class;
 
     private int pos;
     private String pattern;
@@ -30,18 +34,7 @@ public class DataFieldClassParams implements AnnotationsPropertyParams {
 
     @Override
     public Map<String, Object> getAnnotationsMembers(int pos) {
-        //// TODO: 11/01/16 Can be null - change it
         String params = parameters.get(pos);
-        pattern = getValue(params, "pattern");
-        length = Integer.parseInt(getValue(params, "length"));
-        precision = Integer.parseInt(getValue(params, "precision"));
-        position = Integer.parseInt(getValue(params, "position"));
-        required = Boolean.parseBoolean(getValue(params, "position"));
-        trim = Boolean.parseBoolean(getValue(params, "position"));
-        defaultValue = getValue(params, "position");
-        impliedDecimalSeparator = Boolean.parseBoolean(getValue(params, "position"));
-        lengthPos = Integer.parseInt(getValue(params, "position"));
-        delimiter = getValue(params, "position");
 
         Map<String, Object> result = new HashMap<>();
         result.put("pos", pos);
@@ -55,14 +48,38 @@ public class DataFieldClassParams implements AnnotationsPropertyParams {
         result.put("impliedDecimalSeparator", impliedDecimalSeparator);
         result.put("lengthPos", lengthPos);
         result.put("delimiter", delimiter);
+
+        for (Map.Entry<String, Object> entry : result.entrySet()) {
+            String key = entry.getKey();
+            Object value = entry.getValue();
+
+            String temp = getValue(params, key);
+            if (value instanceof String) {
+                if (temp != null) {
+                    result.put(key, temp);
+                } else {
+                    result.put(key, Utils.getAnnotationDefault(aClass, key));
+                }
+            } else if (value instanceof Number) {
+                if (temp != null) {
+                    result.put(key, Integer.parseInt(temp));
+                } else {
+                    result.put(key, (Integer) Utils.getAnnotationDefault(aClass, key));
+                }
+            } else if (value instanceof Boolean) {
+                if (temp != null) {
+                    result.put(key, Boolean.valueOf(temp));
+                } else {
+                    result.put(key, (Boolean) Utils.getAnnotationDefault(aClass, key));
+                }
+            }
+        }
+
+        if (result != null && result.get("pos") == null) {
+            result.put("pos", pos);
+        }
+
         return result;
     }
 
-    public static String getValue(String params, String fieldName) {
-        Matcher m = Pattern.compile(fieldName + "\\(([^)]+)\\)").matcher(params);
-        if (m.find()) {
-            return m.group(1);
-        }
-        return null;
-    }
 }

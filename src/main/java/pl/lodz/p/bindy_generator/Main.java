@@ -34,6 +34,7 @@ public class Main {
 
             Utils.prepareJavaFile(jc.getPackageName(), classNode, ".");
         } catch (Exception e) {
+            e.printStackTrace();
             jc.getJCommander().usage();
         }
     }

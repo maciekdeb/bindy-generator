@@ -5,7 +5,7 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParametersDelegate;
 import org.apache.camel.dataformat.bindy.annotation.CsvRecord;
-import org.apache.camel.dataformat.bindy.format.IntegerFormat;
+import org.apache.camel.dataformat.bindy.annotation.DataField;
 
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +32,6 @@ public class MainParams {
      */
     @DynamicParameter(names = "-f")
     private Map<Integer, String> fields = new HashMap<>();
-
 
     public MainParams(String[] arguments) {
         jCommander = new JCommander(this, arguments);
@@ -78,8 +77,14 @@ public class MainParams {
     }
 
     public Map<String, Object> getAnnotationMembers(Class aClass) {
-        if (aClass.equals(CsvRecord.class)) {
+        if (CsvRecord.class.equals(aClass)) {
             return csvRecordParams.getAnnotationsMembers();
+        } else return null;
+    }
+
+    public Map<String, Object> getAnnotationMembers(Class aClass, int pos) {
+        if (DataField.class.equals(aClass)) {
+            return new DataFieldClassParams(fields).getAnnotationsMembers(pos);
         } else return null;
     }
 

@@ -19,22 +19,25 @@ public class CsvModelBuilder {
     private static final Class CLASS_ANNOTATION = CsvRecord.class;
 
     private TypeSpec.Builder csvModelBuilder;
+    private MainParams params;
 
-    public CsvModelBuilder(MainParams jc) {
-        AnnotationSpec csvRecord = AnnotationsFactory.getAnnotation(CLASS_ANNOTATION, jc);
+    public CsvModelBuilder(MainParams params) {
+        this.params = params;
 
-        this.csvModelBuilder = TypeSpec.classBuilder(jc.getClassName())
+        AnnotationSpec csvRecord = AnnotationsFactory.getAnnotation(CLASS_ANNOTATION, params);
+
+        this.csvModelBuilder = TypeSpec.classBuilder(params.getClassName())
                 .addModifiers(Modifier.PUBLIC)
                 .addAnnotation(csvRecord)
                 .addJavadoc(Config.getInstance().generationMark());
     }
 
     public CsvModelBuilder withField(Class type, String name) {
+        AnnotationSpec annotation = AnnotationsFactory.getAnnotation(DataField.class, this.params, 1);
+
         FieldSpec field = FieldSpec.builder(type, name)
                 .addModifiers(Modifier.PRIVATE)
-                .addAnnotation(AnnotationSpec.builder(DataField.class)
-                        .addMember("pos", "$L", 4)
-                        .build())
+                .addAnnotation(annotation)
                 .build();
         this.csvModelBuilder.addField(field);
         return this;
