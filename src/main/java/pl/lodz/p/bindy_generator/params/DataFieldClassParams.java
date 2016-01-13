@@ -2,6 +2,7 @@ package pl.lodz.p.bindy_generator.params;
 
 import org.apache.camel.dataformat.bindy.annotation.DataField;
 import org.apache.camel.dataformat.bindy.format.NumberPatternFormat;
+import org.apache.camel.dataformat.bindy.format.StringFormat;
 import pl.lodz.p.bindy_generator.util.Utils;
 
 import java.util.HashMap;
@@ -12,7 +13,7 @@ import java.util.Map;
  */
 public class DataFieldClassParams implements AnnotationsPropertyParams {
 
-    private Map<Integer, String> parameters;
+    private Map<String, String> parameters;
 
     private Class aClass = DataField.class;
 
@@ -28,13 +29,13 @@ public class DataFieldClassParams implements AnnotationsPropertyParams {
     private int lengthPos;
     private String delimiter;
 
-    public DataFieldClassParams(Map<Integer, String> parameters) {
+    public DataFieldClassParams(Map<String, String> parameters) {
         this.parameters = parameters;
     }
 
     @Override
     public Map<String, Object> getAnnotationsMembers(int pos) {
-        String params = parameters.get(pos);
+        String params = parameters.get(String.valueOf(pos));
 
         Map<String, Object> result = new HashMap<>();
         result.put("pos", pos);

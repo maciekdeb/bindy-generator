@@ -31,7 +31,7 @@ public class MainParams {
      * Represents dynamic sets describing fields parameters (-f1=name(field1),pos(2))
      */
     @DynamicParameter(names = "-f")
-    private Map<Integer, String> fields = new HashMap<>();
+    private Map<String, String> fields = new HashMap<>();
 
     public MainParams(String[] arguments) {
         jCommander = new JCommander(this, arguments);

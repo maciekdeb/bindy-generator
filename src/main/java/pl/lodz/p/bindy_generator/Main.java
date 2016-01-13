@@ -28,11 +28,13 @@ public class Main {
 
             List<String> fieldsNames = Utils.prepareFieldNames(jc.csvRecordParams.skipFirstLine, jc.csvRecordParams.separator, firstLine);
 
-            TypeSpec classNode = new CsvModelBuilder(jc)
-                    .withField(String.class, "fieldMy")
-                    .build();
+            CsvModelBuilder classNode = new CsvModelBuilder(jc);
 
-            Utils.prepareJavaFile(jc.getPackageName(), classNode, ".");
+            for (String fieldName : fieldsNames) {
+                classNode.withField(String.class, fieldName);
+            }
+
+            Utils.prepareJavaFile(jc.getPackageName(), classNode.build(), ".");
         } catch (Exception e) {
             e.printStackTrace();
             jc.getJCommander().usage();
