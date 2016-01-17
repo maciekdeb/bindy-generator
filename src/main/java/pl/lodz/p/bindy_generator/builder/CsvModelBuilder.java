@@ -32,8 +32,8 @@ public class CsvModelBuilder {
                 .addJavadoc(Config.getInstance().generationMark());
     }
 
-    public CsvModelBuilder withField(Class type, String name) {
-        AnnotationSpec annotation = AnnotationsFactory.getAnnotation(DataField.class, this.params, 1);
+    public CsvModelBuilder withField(Class type, int pos, String name) {
+        AnnotationSpec annotation = AnnotationsFactory.getAnnotation(DataField.class, this.params, pos);
 
         FieldSpec field = FieldSpec.builder(type, name)
                 .addModifiers(Modifier.PRIVATE)

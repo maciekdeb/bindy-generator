@@ -1,8 +1,11 @@
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 import org.junit.Test;
+import pl.lodz.p.bindy_generator.util.InferenceUtils;
+import pl.lodz.p.bindy_generator.util.Utils;
 
 import javax.lang.model.element.Modifier;
+import java.util.Arrays;
 
 /**
  * Created by maciekdeb on 2016-01-04.
