@@ -33,7 +33,7 @@ public class Main {
 
             List<String> fieldsNames = Utils.prepareFieldNames(jc.csvRecordParams.skipFirstLine, jc.csvRecordParams.separator, firstLine);
             for (int i = 0; i < fieldsNames.size(); i++) {
-                Class type = InferenceUtils.inferFieldType(lines, jc.csvRecordParams.separator, i);
+                Class type = InferenceUtils.inferFieldType(lines, jc.csvRecordParams.skipFirstLine, jc.csvRecordParams.separator, i);
                 classNode.withField(type, (i+1), fieldsNames.get(i));
             }
 

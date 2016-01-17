@@ -34,7 +34,7 @@ public class InferenceUtilsTest {
         list.add(line1);
         list.add(line2);
 
-        Class type = InferenceUtils.inferFieldType(list, ",", 2);
+        Class type = InferenceUtils.inferFieldType(list,false,  ",", 2);
         Assert.assertEquals(String.class, type);
     }
 
@@ -46,7 +46,7 @@ public class InferenceUtilsTest {
         list.add(line1);
         list.add(line2);
 
-        Class type = InferenceUtils.inferFieldType(list, ",", 2);
+        Class type = InferenceUtils.inferFieldType(list, false, ",", 2);
         Assert.assertEquals(String.class, type);
     }
 
@@ -58,7 +58,7 @@ public class InferenceUtilsTest {
         list.add(line1);
         list.add(line2);
 
-        Class type = InferenceUtils.inferFieldType(list, ",", 2);
+        Class type = InferenceUtils.inferFieldType(list, false, ",", 2);
         Assert.assertEquals(Integer.class, type);
     }
 

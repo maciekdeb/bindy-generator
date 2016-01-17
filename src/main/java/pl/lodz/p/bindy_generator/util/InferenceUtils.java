@@ -7,13 +7,13 @@ import java.util.List;
  */
 public class InferenceUtils {
 
-    public static Class inferFieldType(List<String> lines, String separator, int position) {
+    public static Class inferFieldType(List<String> lines, boolean skipFirstLine, String separator, int position) {
 
         boolean everyIsDecimal = true;
         boolean everyIsInteger = true;
 
-        for (String line : lines) {
-            String[] fields = line.split(separator);
+        for (int i = (skipFirstLine ? 1 : 0); i < lines.size(); i++) {
+            String[] fields = lines.get(i).split(separator);
             String field = fields[position].trim();
             if (everyIsDecimal && !isDecimal(field)) {
                 everyIsDecimal = false;
