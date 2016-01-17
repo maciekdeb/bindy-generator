@@ -43,13 +43,13 @@ public class Utils {
         final String defaultFieldNamePrefix = "field";
         Stream<String> stream = Arrays.stream(line.split(separator));
         if (skipFirstLine) {
+            return stream
+                    .map(Utils::prepareJavaConventionName)
+                    .collect(Collectors.toList());
+        } else {
             return LongStream
                     .rangeClosed(1, stream.count())
                     .mapToObj(i -> String.format("%s%s", defaultFieldNamePrefix, i))
-                    .collect(Collectors.toList());
-        } else {
-            return stream
-                    .map(Utils::prepareJavaConventionName)
                     .collect(Collectors.toList());
         }
     }

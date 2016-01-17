@@ -1,4 +1,6 @@
-id, price, product name
-23, 123.44, bag
-34, 10.00, shirt
-56, 50.00, shoe
+id, price, currency, product ID, short product name, date,client id,payment type, warehouse Id
+1, 123.44,EUR,a0023, bag,20160101, DE00000112234,01,w765
+2, 123.44,EUR,a0023, bag,20160101, DE00002345624,01,w765
+3, 123.44,PLN,a0023 ,bag,20160101, PL00000113455,23,w765
+34, 10.00,EUR,a0654, shirt,20160101,DE00000112234,23,w765
+56, 50.00,EUR,a0456 ,shoe,20160101,DE00000112254,25,w765
