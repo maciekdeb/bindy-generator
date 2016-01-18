@@ -18,8 +18,6 @@ import java.util.stream.Collectors;
  */
 public class Main {
 
-    public static final Config CONFIG = Config.getInstance();
-
     public static void main(String[] args) throws Exception {
         MainParams jc = null;
         try {
