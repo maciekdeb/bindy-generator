@@ -9,4 +9,28 @@ In order to compile this program the maven software will be needed.
 
 ## Usage
 
-bindy-generator
+Usage: bindy-generator [options] <FileName> <ClassNameWithPackage>
+  Options:
+    -a, --autospanLine
+       
+       Default: false
+    -l, --crlf
+       crlf
+    -g, --generateHeaderColumns
+       
+       Default: false
+    -o, --isOrdered
+       
+       Default: false
+    -q, --quote
+       
+  * -s, --separator
+       field separator
+    -x, --skipFirstLine
+       skip the first line of CSV
+       Default: false
+    -f
+       -f<field_number>=<field_options> ex. -f1=pos(2)
+       Syntax: -fkey=value
+       Default: {}
+
