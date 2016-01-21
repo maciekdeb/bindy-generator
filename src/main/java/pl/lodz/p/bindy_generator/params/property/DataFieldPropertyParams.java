@@ -1,8 +1,6 @@
-package pl.lodz.p.bindy_generator.params;
+package pl.lodz.p.bindy_generator.params.property;
 
 import org.apache.camel.dataformat.bindy.annotation.DataField;
-import org.apache.camel.dataformat.bindy.format.NumberPatternFormat;
-import org.apache.camel.dataformat.bindy.format.StringFormat;
 import pl.lodz.p.bindy_generator.util.Utils;
 
 import java.util.HashMap;
@@ -11,25 +9,25 @@ import java.util.Map;
 /**
  * Created by maciek on 11/01/16.
  */
-public class DataFieldClassParams implements AnnotationsPropertyParams {
+public class DataFieldPropertyParams implements AnnotationsPropertyParams {
+
+    private static final Class CLASS = DataField.class;
 
     private Map<String, String> parameters;
 
-    private Class aClass = DataField.class;
-
-    private int pos;
+    private Integer pos;
     private String pattern;
-    private int length;
-    private int precision;
-    private int position;
-    private boolean required;
-    private boolean trim;
+    private Integer length;
+    private Integer precision;
+    private Integer position;
+    private Boolean required;
+    private Boolean trim;
     private String defaultValue;
-    private boolean impliedDecimalSeparator;
-    private int lengthPos;
+    private Boolean impliedDecimalSeparator;
+    private Integer lengthPos;
     private String delimiter;
 
-    public DataFieldClassParams(Map<String, String> parameters) {
+    public DataFieldPropertyParams(Map<String, String> parameters) {
         this.parameters = parameters;
     }
 
@@ -59,19 +57,19 @@ public class DataFieldClassParams implements AnnotationsPropertyParams {
                 if (temp != null) {
                     result.put(key, temp);
                 } else {
-                    result.put(key, Utils.getAnnotationDefault(aClass, key));
+                    result.put(key, Utils.getAnnotationDefault(CLASS, key));
                 }
             } else if (value instanceof Number) {
                 if (temp != null) {
                     result.put(key, Integer.parseInt(temp));
                 } else {
-                    result.put(key, (Integer) Utils.getAnnotationDefault(aClass, key));
+                    result.put(key, (Integer) Utils.getAnnotationDefault(CLASS, key));
                 }
             } else if (value instanceof Boolean) {
                 if (temp != null) {
                     result.put(key, Boolean.valueOf(temp));
                 } else {
-                    result.put(key, (Boolean) Utils.getAnnotationDefault(aClass, key));
+                    result.put(key, (Boolean) Utils.getAnnotationDefault(CLASS, key));
                 }
             }
         }

@@ -1,7 +1,8 @@
-package pl.lodz.p.bindy_generator.params;
+package pl.lodz.p.bindy_generator.params.type;
 
 import com.beust.jcommander.Parameter;
 import org.apache.camel.dataformat.bindy.annotation.CsvRecord;
+import pl.lodz.p.bindy_generator.params.type.AnnotationsClassParams;
 import pl.lodz.p.bindy_generator.util.Utils;
 
 import java.util.HashMap;

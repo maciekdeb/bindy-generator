@@ -1,4 +1,4 @@
-package pl.lodz.p.bindy_generator.params;
+package pl.lodz.p.bindy_generator.params.type;
 
 import java.util.Map;
 
