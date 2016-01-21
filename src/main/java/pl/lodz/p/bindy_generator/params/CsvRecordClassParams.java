@@ -10,29 +10,26 @@ import java.util.Map;
  */
 public class CsvRecordClassParams implements AnnotationsClassParams {
 
-    @Parameter(required = true, names = {"-s", "--separator"}, description = "Skip the first line of CSV.")
+    @Parameter(required = true, names = {"-s", "--separator"}, description = "field separator")
     public String separator;
 
-    @Parameter(names = {"-sfl", "--skipFirstLine"}, description = "Skip the first line of CSV.")
+    @Parameter(names = {"-x", "--skipFirstLine"}, description = "skip the first line of CSV")
     public boolean skipFirstLine;
 
-    @Parameter(names = "-crlf")
+    @Parameter(names = {"-l", "--crlf"}, description = "crlf")
     public String crlf;
 
-    @Parameter(names = "-generateHeaderColumns")
+    @Parameter(names = {"-g", "--generateHeaderColumns"})
     public boolean generateHeaderColumns;
 
-    @Parameter(names = "-autospanLine")
+    @Parameter(names = {"-a", "--autospanLine"})
     public boolean autospanLine;
 
-    @Parameter(names = "-isOrdered")
+    @Parameter(names = {"-o", "--isOrdered"})
     public boolean isOrdered;
 
-    @Parameter(names = "-quote")
+    @Parameter(names = {"-q", "--quote"})
     public String quote;
-
-    @Parameter(names = "-quoting")
-    public boolean quoting;
 
     @Override
     public Map<String, Object> getAnnotationsMembers() {
@@ -44,7 +41,6 @@ public class CsvRecordClassParams implements AnnotationsClassParams {
         result.put("autospanLine", autospanLine);
         result.put("isOrdered", isOrdered);
         result.put("quote", quote);
-        result.put("quoting", quoting);
         return result;
     }
 }

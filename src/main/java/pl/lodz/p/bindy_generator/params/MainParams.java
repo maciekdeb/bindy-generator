@@ -18,7 +18,7 @@ public class MainParams {
 
     private JCommander jCommander;
 
-    @Parameter(required = true, description = "parameters")
+    @Parameter(required = true, description = "<FileName> <ClassNameWithPackage>")
     private List<String> parameters;
 
     /**
@@ -30,7 +30,7 @@ public class MainParams {
     /**
      * Represents dynamic sets describing fields parameters (-f1=name(field1),pos(2))
      */
-    @DynamicParameter(names = "-f")
+    @DynamicParameter(names = "-f", description = "-f<field_number>=<field_options> ex. -f1=pos(2)")
     private Map<String, String> fields = new HashMap<>();
 
     public MainParams(String[] arguments) {
