@@ -12,18 +12,20 @@ In order to compile this program the maven software will be needed.
 Usage: bindy-generator [options] <FileName> <ClassNameWithPackage>
   Options:
     -a, --autospanLine
-       
+       if enabled then the last column is auto spanned to end of line
        Default: false
     -l, --crlf
-       crlf
+       allow to define the carriage return character to use
+       Default: WINDOWS
     -g, --generateHeaderColumns
-       
+       uses to generate the header columns of the CSV generates
        Default: false
     -o, --isOrdered
-       
+       allow to change the order of the fields when CSV is generated
        Default: false
     -q, --quote
-       
+       allow to specify a quote character of the fields when CSV is generated
+       Default: "
   * -s, --separator
        field separator
     -x, --skipFirstLine
