@@ -23,6 +23,9 @@ public class MainParams {
     @Parameter(required = true, description = "<FileName> <ClassNameWithPackage>")
     private List<String> parameters;
 
+    @Parameter(names = {"-p", "--path"}, description = "path for generated java class")
+    public String path = ".";
+
     /**
      * Includes parameters for CsvRecord annotation like separator, skipFirstLine etc.
      */

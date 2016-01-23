@@ -35,7 +35,7 @@ public class Main {
                 classNode.withField(type, (i+1), fieldsNames.get(i));
             }
 
-            Utils.prepareJavaFile(jc.getPackageName(), classNode.build(), ".");
+            Utils.prepareJavaFile(jc.getPackageName(), classNode.build(), jc.path);
         } catch (Exception e) {
             e.printStackTrace();
             jc.getJCommander().usage();
