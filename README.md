@@ -1,5 +1,4 @@
-### Status
-[![Build Status](https://api.travis-ci.org/maciekdeb/bindy-generator.svg)](https://travis-ci.org/maciekdeb/bindy-generator)
+### Status [![Build Status](https://api.travis-ci.org/maciekdeb/bindy-generator.svg)](https://travis-ci.org/maciekdeb/bindy-generator)
 
 # Apache Camel Bindy Generator
 
