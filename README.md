@@ -3,6 +3,8 @@
 
 # Apache Camel Bindy Generator
 
+This application automatically generates domain classes for library http://camel.apache.org/bindy.html
+
 In order to compile this program the maven software will be needed.
 
 ```mvn clean install```
