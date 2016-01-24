@@ -11,16 +11,21 @@ import java.util.regex.Pattern;
  */
 public interface AnnotationsPropertyParams {
 
+    String LIST_SEPARATOR = ",";
+
     default String getValue(String params, String fieldName) {
         if (StringUtils.isNoneBlank(params)) {
             Matcher m = Pattern.compile(fieldName + "\\(([^)]+)\\)").matcher(params);
             if (m.find()) {
                 return m.group(1);
             }
+            if (params.startsWith(fieldName + LIST_SEPARATOR) || params.endsWith(LIST_SEPARATOR + fieldName)) {
+                return String.valueOf(true);
+            }
         }
         return null;
     }
 
-    public Map<String, Object> getAnnotationsMembers(int pos);
+    Map<String, Object> getAnnotationsMembers(int pos);
 
 }

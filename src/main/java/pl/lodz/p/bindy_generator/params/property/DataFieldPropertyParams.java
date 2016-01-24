@@ -48,6 +48,14 @@ public class DataFieldPropertyParams implements AnnotationsPropertyParams {
         result.put("lengthPos", lengthPos);
         result.put("delimiter", delimiter);
 
+        meldValues(params, result);
+
+        initializeRequiredFields(result, pos);
+
+        return result;
+    }
+
+    private void meldValues(String params, Map<String, Object> result) {
         for (Map.Entry<String, Object> entry : result.entrySet()) {
             String key = entry.getKey();
             Object value = entry.getValue();
@@ -62,12 +70,12 @@ public class DataFieldPropertyParams implements AnnotationsPropertyParams {
                 }
             }
         }
+    }
 
-        if (result != null && result.get("pos") == null) {
+    private void initializeRequiredFields(Map<String, Object> result, int pos) {
+        if (result.get("pos") == null) {
             result.put("pos", pos);
         }
-
-        return result;
     }
 
 }
