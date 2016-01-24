@@ -1,6 +1,7 @@
 package pl.lodz.p.bindy_generator.params.type;
 
 import com.beust.jcommander.Parameter;
+import com.beust.jcommander.Parameters;
 import org.apache.camel.dataformat.bindy.annotation.CsvRecord;
 import pl.lodz.p.bindy_generator.params.type.AnnotationsClassParams;
 import pl.lodz.p.bindy_generator.util.Utils;
@@ -11,11 +12,12 @@ import java.util.Map;
 /**
  * Created by maciek on 10/01/16.
  */
+@Parameters(commandDescription = "Generates csv based domain class")
 public class CsvRecordClassParams implements AnnotationsClassParams {
 
     private static final Class CLASS = CsvRecord.class;
 
-    @Parameter(required = true, names = {"-s", "--separator"}, description = "field separator")
+    @Parameter(names = {"-s", "--separator"}, description = "field separator")
     public String separator;
 
     @Parameter(names = {"-x", "--skipFirstLine"}, description = "skip the first line of CSV")

@@ -1,9 +1,9 @@
 package pl.lodz.p.bindy_generator;
 
-import com.squareup.javapoet.TypeSpec;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.lodz.p.bindy_generator.builder.CsvModelBuilder;
 import pl.lodz.p.bindy_generator.params.MainParams;
-import pl.lodz.p.bindy_generator.util.Config;
 import pl.lodz.p.bindy_generator.util.InferenceUtils;
 import pl.lodz.p.bindy_generator.util.Utils;
 
@@ -18,24 +18,32 @@ import java.util.stream.Collectors;
  */
 public class Main {
 
+    static Logger LOGGER = LoggerFactory.getLogger(Main.class);
+
     public static void main(String[] args) throws Exception {
         MainParams jc = null;
         try {
             jc = new MainParams(args);
 
-            Path path = Paths.get(jc.getFileName());
+            Path path = Paths.get(jc.file);
             List<String> lines = Files.lines(path).collect(Collectors.toList());
             String firstLine = lines.get(0);
 
-            CsvModelBuilder classNode = new CsvModelBuilder(jc);
+            String command = jc.getJCommander().getParsedCommand();
+            if (MainParams.CSV_PARAM.equals(command)) {
+                LOGGER.info("Started generating csv model");
+                CsvModelBuilder classNode = new CsvModelBuilder(jc);
+                List<String> fieldsNames = Utils.prepareFieldNames(jc.csv.skipFirstLine, jc.csv.separator, firstLine);
+                for (int i = 0; i < fieldsNames.size(); i++) {
+                    Class type = InferenceUtils.inferFieldType(lines, jc.csv.skipFirstLine, jc.csv.separator, i);
+                    classNode.withField(type, (i + 1), fieldsNames.get(i));
+                }
+                Utils.prepareJavaFile(jc.getPackageName(), classNode.build(), jc.path);
+            } else if (MainParams.FIXED_PARAM.equals(command)) {
+                LOGGER.info("Started generating fixed length model");
 
-            List<String> fieldsNames = Utils.prepareFieldNames(jc.csvRecordParams.skipFirstLine, jc.csvRecordParams.separator, firstLine);
-            for (int i = 0; i < fieldsNames.size(); i++) {
-                Class type = InferenceUtils.inferFieldType(lines, jc.csvRecordParams.skipFirstLine, jc.csvRecordParams.separator, i);
-                classNode.withField(type, (i+1), fieldsNames.get(i));
             }
 
-            Utils.prepareJavaFile(jc.getPackageName(), classNode.build(), jc.path);
         } catch (Exception e) {
             e.printStackTrace();
             jc.getJCommander().usage();
