@@ -39,6 +39,7 @@ public class Main {
                     classNode.withField(type, (i + 1), fieldsNames.get(i));
                 }
                 Utils.prepareJavaFile(jc.getPackageName(), classNode.build(), jc.path);
+                LOGGER.info("New Java class " + jc.getClassNameWithPackage() + " file written in this directory " + jc.path);
             } else if (MainParams.FIXED_PARAM.equals(command)) {
                 LOGGER.info("Started generating fixed length model");
 

@@ -15,17 +15,17 @@ public class DataFieldPropertyParams implements AnnotationsPropertyParams {
 
     private Map<String, String> parameters;
 
-    private Integer pos;
-    private String pattern;
-    private Integer length;
-    private Integer precision;
-    private Integer position;
-    private Boolean required;
-    private Boolean trim;
-    private String defaultValue;
-    private Boolean impliedDecimalSeparator;
-    private Integer lengthPos;
-    private String delimiter;
+    private Integer pos = Utils.<Integer>getAnnotationDefault(CLASS, "pos");
+    private String pattern = Utils.<String>getAnnotationDefault(CLASS, "pattern");
+    private Integer length = Utils.<Integer>getAnnotationDefault(CLASS, "length");
+    private Integer precision = Utils.<Integer>getAnnotationDefault(CLASS, "precision");
+    private Integer position = Utils.<Integer>getAnnotationDefault(CLASS, "position");
+    private Boolean required = Utils.<Boolean>getAnnotationDefault(CLASS, "required");
+    private Boolean trim = Utils.<Boolean>getAnnotationDefault(CLASS, "trim");
+    private String defaultValue = Utils.<String>getAnnotationDefault(CLASS, "defaultValue");
+    private Boolean impliedDecimalSeparator = Utils.<Boolean>getAnnotationDefault(CLASS, "impliedDecimalSeparator");
+    private Integer lengthPos = Utils.<Integer>getAnnotationDefault(CLASS, "lengthPos");
+    private String delimiter = Utils.<String>getAnnotationDefault(CLASS, "delimiter");
 
     public DataFieldPropertyParams(Map<String, String> parameters) {
         this.parameters = parameters;
@@ -51,25 +51,14 @@ public class DataFieldPropertyParams implements AnnotationsPropertyParams {
         for (Map.Entry<String, Object> entry : result.entrySet()) {
             String key = entry.getKey();
             Object value = entry.getValue();
-
             String temp = getValue(params, key);
-            if (value instanceof String) {
-                if (temp != null) {
+            if (temp != null) {
+                if (value instanceof String) {
                     result.put(key, temp);
-                } else {
-                    result.put(key, Utils.getAnnotationDefault(CLASS, key));
-                }
-            } else if (value instanceof Number) {
-                if (temp != null) {
+                } else if (value instanceof Number) {
                     result.put(key, Integer.parseInt(temp));
-                } else {
-                    result.put(key, (Integer) Utils.getAnnotationDefault(CLASS, key));
-                }
-            } else if (value instanceof Boolean) {
-                if (temp != null) {
+                } else if (value instanceof Boolean) {
                     result.put(key, Boolean.valueOf(temp));
-                } else {
-                    result.put(key, (Boolean) Utils.getAnnotationDefault(CLASS, key));
                 }
             }
         }

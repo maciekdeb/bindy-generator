@@ -16,8 +16,35 @@ public class FixedLengthClassParams implements AnnotationsClassParams {
 
     private static final Class CLASS = FixedLengthRecord.class;
 
-    @Parameter(names = "-c", description = "")
+    @Parameter(names = "--crlf", description = "")
     public String crlf = Utils.<String>getAnnotationDefault(CLASS, "crlf");
+
+    @Parameter(names = "--paddingChar", description = "")
+    public Character paddingChar = Utils.<Character>getAnnotationDefault(CLASS, "paddingChar");
+
+    @Parameter(names = "--length", description = "")
+    public Integer length = Utils.<Integer>getAnnotationDefault(CLASS, "length");
+
+    @Parameter(names = "--hasHeader", description = "")
+    public Boolean hasHeader = Utils.<Boolean>getAnnotationDefault(CLASS, "hasHeader");
+
+    @Parameter(names = "--hasFooter", description = "")
+    public Boolean hasFooter = Utils.<Boolean>getAnnotationDefault(CLASS, "hasFooter");
+
+    @Parameter(names = "--skipHeader", description = "")
+    public Boolean skipHeader = Utils.<Boolean>getAnnotationDefault(CLASS, "skipHeader");
+
+    @Parameter(names = "--skipFooter", description = "")
+    public Boolean skipFooter = Utils.<Boolean>getAnnotationDefault(CLASS, "skipFooter");
+
+    @Parameter(names = "--isHeader", description = "")
+    public Boolean isHeader = Utils.<Boolean>getAnnotationDefault(CLASS, "isHeader");
+
+    @Parameter(names = "--isFooter", description = "")
+    public Boolean isFooter = Utils.<Boolean>getAnnotationDefault(CLASS, "isFooter");
+
+    @Parameter(names = "--ignoreTrailingChars", description = "")
+    public Boolean ignoreTrailingChars = Utils.<Boolean>getAnnotationDefault(CLASS, "ignoreTrailingChars");
 
     @Override
     public Map<String, Object> getAnnotationsMembers() {
