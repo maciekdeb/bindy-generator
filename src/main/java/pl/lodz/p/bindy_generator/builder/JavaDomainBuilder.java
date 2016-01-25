@@ -5,7 +5,6 @@ import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
-import org.apache.camel.dataformat.bindy.annotation.CsvRecord;
 import org.apache.camel.dataformat.bindy.annotation.DataField;
 import org.apache.commons.lang3.StringUtils;
 import pl.lodz.p.bindy_generator.params.MainParams;
@@ -18,35 +17,35 @@ import java.util.List;
 /**
  * Created by maciek on 08/01/16.
  */
-public class CsvModelBuilder {
+public class JavaDomainBuilder {
 
-    private static final Class CLASS_ANNOTATION = CsvRecord.class;
-
-    private TypeSpec.Builder csvModelBuilder;
+    private Class classAnnotation;
+    private TypeSpec.Builder javaDomainBuilder;
     private MainParams params;
 
-    public CsvModelBuilder(MainParams params) {
+    public JavaDomainBuilder(MainParams params, Class classAnnotation) {
         this.params = params;
+        this.classAnnotation = classAnnotation;
 
-        AnnotationSpec csvRecord = AnnotationsFactory.getAnnotation(CLASS_ANNOTATION, params);
+        AnnotationSpec csvRecord = AnnotationsFactory.getAnnotation(this.classAnnotation, this.params);
 
-        this.csvModelBuilder = TypeSpec.classBuilder(params.getClassName())
+        this.javaDomainBuilder = TypeSpec.classBuilder(params.getClassName())
                 .addModifiers(Modifier.PUBLIC)
                 .addAnnotation(csvRecord)
                 .addJavadoc(Config.getInstance().generationMark());
     }
 
-    public CsvModelBuilder withField(Class type, int pos, String name) {
+    public JavaDomainBuilder withField(Class type, int pos, String name) {
         AnnotationSpec annotation = AnnotationsFactory.getAnnotation(DataField.class, this.params, pos);
 
         FieldSpec field = FieldSpec.builder(type, name)
                 .addModifiers(Modifier.PRIVATE)
                 .addAnnotation(annotation)
                 .build();
-        this.csvModelBuilder.addField(field);
+        this.javaDomainBuilder.addField(field);
 
         List<MethodSpec> methods = ImmutableList.of(createGetter(type, name), createSetter(type, name));
-        this.csvModelBuilder.addMethods(methods);
+        this.javaDomainBuilder.addMethods(methods);
 
         return this;
     }
@@ -70,7 +69,7 @@ public class CsvModelBuilder {
     }
 
     public TypeSpec build() {
-        return this.csvModelBuilder.build();
+        return this.javaDomainBuilder.build();
     }
 
 }

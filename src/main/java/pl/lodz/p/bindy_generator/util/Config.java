@@ -2,6 +2,7 @@ package pl.lodz.p.bindy_generator.util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDateTime;
 import java.util.Properties;
 
 /**
@@ -37,8 +38,9 @@ public class Config {
     }
 
     public String generationMark() {
-        return "Class automatically generated. Any change can be overwritten.\n"
-                + "Model representation for Apache Camel Bindy.\n"
+        return "Model representation for Apache Camel Bindy.\n"
+                + String.format("Class automatically generated on %s.\n", LocalDateTime.now())
+                + "Any change can be overridden.\n"
                 + String.format("\n%s %s\n", PROPERTIES.getProperty("artifactId"), PROPERTIES.getProperty("version"));
     }
 

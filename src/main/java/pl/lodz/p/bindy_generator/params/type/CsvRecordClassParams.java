@@ -6,41 +6,40 @@ import org.apache.camel.dataformat.bindy.annotation.CsvRecord;
 import pl.lodz.p.bindy_generator.params.type.AnnotationsClassParams;
 import pl.lodz.p.bindy_generator.util.Utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Created by maciek on 10/01/16.
  */
 @Parameters(commandDescription = "Generates csv based domain class")
-public class CsvRecordClassParams implements AnnotationsClassParams {
-
-    private static final Class CLASS = CsvRecord.class;
+public class CsvRecordClassParams extends AnnotationsClassParams {
 
     @Parameter(names = {"-s", "--separator"}, description = "field separator")
     public String separator;
 
     @Parameter(names = {"-x", "--skipFirstLine"}, description = "skip the first line of CSV")
-    public Boolean skipFirstLine = Utils.<Boolean>getAnnotationDefault(CLASS, "skipFirstLine");
+    public Boolean skipFirstLine = Utils.<Boolean>getAnnotationDefault(getType(), "skipFirstLine");
 
     @Parameter(names = {"-l", "--crlf"}, description = "allow to define the carriage return character to use")
-    public String crlf = Utils.<String>getAnnotationDefault(CLASS, "crlf");
+    public String crlf = Utils.<String>getAnnotationDefault(getType(), "crlf");
 
     @Parameter(names = {"-g", "--generateHeaderColumns"}, description = "uses to generate the header columns of the CSV generates")
-    public Boolean generateHeaderColumns = Utils.<Boolean>getAnnotationDefault(CLASS, "generateHeaderColumns");
+    public Boolean generateHeaderColumns = Utils.<Boolean>getAnnotationDefault(getType(), "generateHeaderColumns");
 
     @Parameter(names = {"-a", "--autospanLine"}, description = "if enabled then the last column is auto spanned to end of line")
-    public Boolean autospanLine = Utils.<Boolean>getAnnotationDefault(CLASS, "autospanLine");
+    public Boolean autospanLine = Utils.<Boolean>getAnnotationDefault(getType(), "autospanLine");
 
     @Parameter(names = {"-o", "--isOrdered"}, description = "allow to change the order of the fields when CSV is generated")
-    public Boolean isOrdered = Utils.<Boolean>getAnnotationDefault(CLASS, "isOrdered");
+    public Boolean isOrdered = Utils.<Boolean>getAnnotationDefault(getType(), "isOrdered");
 
     @Parameter(names = {"-q", "--quote"}, description = "allow to specify a quote character of the fields when CSV is generated")
-    public String quote = Utils.<String>getAnnotationDefault(CLASS, "quote");
+    public String quote = Utils.<String>getAnnotationDefault(getType(), "quote");
 
     @Override
-    public Map<String, Object> getAnnotationsMembers() {
-        Map<String, Object> result = new HashMap<>();
+    void initializeFields() {
         result.put("separator", separator);
         result.put("skipFirstLine", skipFirstLine);
         result.put("crlf", crlf);
@@ -48,6 +47,20 @@ public class CsvRecordClassParams implements AnnotationsClassParams {
         result.put("autospanLine", autospanLine);
         result.put("isOrdered", isOrdered);
         result.put("quote", quote);
-        return result;
     }
+
+    @Override
+    Class getType() {
+        return CsvRecord.class;
+    }
+
+    @Override
+    List<String> getRequiredFields() {
+        List<String> requiredFields = new ArrayList<>();
+        requiredFields.add("separator");
+        return requiredFields;
+
+    }
+
+
 }

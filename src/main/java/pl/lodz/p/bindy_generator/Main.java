@@ -1,8 +1,10 @@
 package pl.lodz.p.bindy_generator;
 
+import org.apache.camel.dataformat.bindy.annotation.CsvRecord;
+import org.apache.camel.dataformat.bindy.annotation.FixedLengthRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.lodz.p.bindy_generator.builder.CsvModelBuilder;
+import pl.lodz.p.bindy_generator.builder.JavaDomainBuilder;
 import pl.lodz.p.bindy_generator.params.MainParams;
 import pl.lodz.p.bindy_generator.util.InferenceUtils;
 import pl.lodz.p.bindy_generator.util.Utils;
@@ -29,21 +31,23 @@ public class Main {
             List<String> lines = Files.lines(path).collect(Collectors.toList());
             String firstLine = lines.get(0);
 
+            JavaDomainBuilder classNode = null;
             String command = jc.getJCommander().getParsedCommand();
             if (MainParams.CSV_PARAM.equals(command)) {
                 LOGGER.info("Started generating csv model");
-                CsvModelBuilder classNode = new CsvModelBuilder(jc);
+                classNode = new JavaDomainBuilder(jc, CsvRecord.class);
                 List<String> fieldsNames = Utils.prepareFieldNames(jc.csv.skipFirstLine, jc.csv.separator, firstLine);
                 for (int i = 0; i < fieldsNames.size(); i++) {
                     Class type = InferenceUtils.inferFieldType(lines, jc.csv.skipFirstLine, jc.csv.separator, i);
                     classNode.withField(type, (i + 1), fieldsNames.get(i));
                 }
-                Utils.prepareJavaFile(jc.getPackageName(), classNode.build(), jc.path);
-                LOGGER.info("New Java class " + jc.getClassNameWithPackage() + " file written in this directory " + jc.path);
             } else if (MainParams.FIXED_PARAM.equals(command)) {
                 LOGGER.info("Started generating fixed length model");
+                classNode = new JavaDomainBuilder(jc, FixedLengthRecord.class);
 
             }
+            Utils.prepareJavaFile(jc.getPackageName(), classNode.build(), jc.path);
+            LOGGER.info("New Java class " + jc.getClassNameWithPackage() + " file written in this directory " + jc.path);
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -6,6 +6,7 @@ import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParametersDelegate;
 import org.apache.camel.dataformat.bindy.annotation.CsvRecord;
 import org.apache.camel.dataformat.bindy.annotation.DataField;
+import org.apache.camel.dataformat.bindy.annotation.FixedLengthRecord;
 import pl.lodz.p.bindy_generator.params.property.DataFieldPropertyParams;
 import pl.lodz.p.bindy_generator.params.type.CsvRecordClassParams;
 import pl.lodz.p.bindy_generator.params.type.FixedLengthClassParams;
@@ -80,6 +81,8 @@ public class MainParams {
     public Map<String, Object> getAnnotationMembers(Class aClass) {
         if (CsvRecord.class.equals(aClass)) {
             return csv.getAnnotationsMembers();
+        } else if (FixedLengthRecord.class.equals(aClass)) {
+            return fixed.getAnnotationsMembers();
         } else return null;
     }
 
