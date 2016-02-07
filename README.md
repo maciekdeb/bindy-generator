@@ -9,7 +9,7 @@ In order to compile this program the maven software will be needed.
 ```mvn clean install```
 
 ## Usage
--f order.csv -c com.shop.Order -field1=pos(1),length(23) -field3=pos(4),length(1),trim fixed
+
 ```
 Usage: bindy-generator -f [file name] -c [class name] [options] [command {fixed, csv}]
   Options:
@@ -79,4 +79,8 @@ Usage: bindy-generator -f [file name] -c [class name] [options] [command {fixed,
           -x, --skipFirstLine
              skip the first line of CSV
              Default: false
+```
+Examples
+```
+-f order.csv -c com.shop.Order -field1=pos(1),length(23) -field3=pos(4),length(1),trim csv
 ```
