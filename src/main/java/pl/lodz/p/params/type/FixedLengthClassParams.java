@@ -1,14 +1,12 @@
-package pl.lodz.p.bindy_generator.params.type;
+package pl.lodz.p.params.type;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import org.apache.camel.dataformat.bindy.annotation.FixedLengthRecord;
-import pl.lodz.p.bindy_generator.util.Utils;
+import pl.lodz.p.util.Utils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by maciek on 10/01/16.

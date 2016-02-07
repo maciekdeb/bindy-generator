@@ -1,4 +1,4 @@
-package pl.lodz.p.bindy_generator.builder;
+package pl.lodz.p.builder;
 
 import com.google.common.collect.ImmutableList;
 import com.squareup.javapoet.AnnotationSpec;
@@ -7,9 +7,9 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 import org.apache.camel.dataformat.bindy.annotation.DataField;
 import org.apache.commons.lang3.StringUtils;
-import pl.lodz.p.bindy_generator.params.MainParams;
-import pl.lodz.p.bindy_generator.util.Config;
-import pl.lodz.p.bindy_generator.factory.AnnotationsFactory;
+import pl.lodz.p.params.MainParams;
+import pl.lodz.p.util.Config;
+import pl.lodz.p.factory.AnnotationsFactory;
 
 import javax.lang.model.element.Modifier;
 import java.util.List;

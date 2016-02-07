@@ -1,4 +1,4 @@
-package pl.lodz.p.bindy_generator.util;
+package pl.lodz.p.util;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
-package pl.lodz.p.bindy_generator.params.property;
+package pl.lodz.p.params.property;
 
 import org.apache.camel.dataformat.bindy.annotation.DataField;
-import pl.lodz.p.bindy_generator.util.Utils;
+import pl.lodz.p.util.Utils;
 
 import java.util.HashMap;
 import java.util.Map;

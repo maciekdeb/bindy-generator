@@ -1,13 +1,13 @@
-package pl.lodz.p.bindy_generator;
+package pl.lodz.p;
 
 import org.apache.camel.dataformat.bindy.annotation.CsvRecord;
 import org.apache.camel.dataformat.bindy.annotation.FixedLengthRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.lodz.p.bindy_generator.builder.JavaDomainBuilder;
-import pl.lodz.p.bindy_generator.params.MainParams;
-import pl.lodz.p.bindy_generator.util.InferenceUtils;
-import pl.lodz.p.bindy_generator.util.Utils;
+import pl.lodz.p.builder.JavaDomainBuilder;
+import pl.lodz.p.params.MainParams;
+import pl.lodz.p.util.InferenceUtils;
+import pl.lodz.p.util.Utils;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,11 +18,15 @@ import java.util.stream.Collectors;
 /**
  * Created by maciek on 04/01/16.
  */
-public class Main {
+public class BindyGeneratorApp {
 
-    static Logger LOGGER = LoggerFactory.getLogger(Main.class);
+    static Logger LOGGER = LoggerFactory.getLogger(BindyGeneratorApp.class);
 
     public static void main(String[] args) throws Exception {
+        generate(args);
+    }
+
+    public static void generate(String[] args) throws Exception{
         MainParams jc = null;
         try {
             jc = new MainParams(args);

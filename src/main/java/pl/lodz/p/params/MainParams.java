@@ -1,18 +1,16 @@
-package pl.lodz.p.bindy_generator.params;
+package pl.lodz.p.params;
 
 import com.beust.jcommander.DynamicParameter;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
-import com.beust.jcommander.ParametersDelegate;
 import org.apache.camel.dataformat.bindy.annotation.CsvRecord;
 import org.apache.camel.dataformat.bindy.annotation.DataField;
 import org.apache.camel.dataformat.bindy.annotation.FixedLengthRecord;
-import pl.lodz.p.bindy_generator.params.property.DataFieldPropertyParams;
-import pl.lodz.p.bindy_generator.params.type.CsvRecordClassParams;
-import pl.lodz.p.bindy_generator.params.type.FixedLengthClassParams;
+import pl.lodz.p.params.property.DataFieldPropertyParams;
+import pl.lodz.p.params.type.CsvRecordClassParams;
+import pl.lodz.p.params.type.FixedLengthClassParams;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**

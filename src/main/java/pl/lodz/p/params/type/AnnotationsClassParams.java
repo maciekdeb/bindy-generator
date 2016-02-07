@@ -1,6 +1,6 @@
-package pl.lodz.p.bindy_generator.params.type;
+package pl.lodz.p.params.type;
 
-import pl.lodz.p.bindy_generator.util.Utils;
+import pl.lodz.p.util.Utils;
 
 import java.util.HashMap;
 import java.util.Iterator;

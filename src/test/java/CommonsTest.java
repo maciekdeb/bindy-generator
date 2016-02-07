@@ -1,12 +1,8 @@
 import junit.framework.Assert;
 import org.apache.camel.dataformat.bindy.annotation.CsvRecord;
 import org.junit.Test;
-import pl.lodz.p.bindy_generator.params.property.AnnotationsPropertyParams;
-import pl.lodz.p.bindy_generator.util.Utils;
-
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import pl.lodz.p.params.property.AnnotationsPropertyParams;
+import pl.lodz.p.util.Utils;
 
 /**
  * Created by maciek on 06/01/16.

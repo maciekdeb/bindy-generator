@@ -1,8 +1,6 @@
 import junit.framework.Assert;
-import org.apache.camel.dataformat.bindy.annotation.CsvRecord;
 import org.junit.Test;
-import pl.lodz.p.bindy_generator.util.InferenceUtils;
-import pl.lodz.p.bindy_generator.util.Utils;
+import pl.lodz.p.util.InferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;

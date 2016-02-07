@@ -1,8 +1,7 @@
-package pl.lodz.p.bindy_generator.factory;
+package pl.lodz.p.factory;
 
 import com.squareup.javapoet.AnnotationSpec;
-import pl.lodz.p.bindy_generator.params.MainParams;
-import pl.lodz.p.bindy_generator.util.Utils;
+import pl.lodz.p.params.MainParams;
 
 import java.util.Map;
 

@@ -1,4 +1,4 @@
-package pl.lodz.p.bindy_generator.params.property;
+package pl.lodz.p.params.property;
 
 import org.apache.commons.lang3.StringUtils;
 
