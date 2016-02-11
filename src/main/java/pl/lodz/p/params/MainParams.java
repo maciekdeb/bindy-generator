@@ -86,7 +86,7 @@ public class MainParams {
 
     public Map<String, Object> getAnnotationMembers(Class aClass, int pos) {
         if (DataField.class.equals(aClass)) {
-            return new DataFieldPropertyParams(fields).getAnnotationsMembers(pos);
+            return new DataFieldPropertyParams().getAnnotationsMembers(fields.get(pos), pos);
         } else return null;
     }
 

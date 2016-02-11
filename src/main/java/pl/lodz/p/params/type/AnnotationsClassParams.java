@@ -17,12 +17,12 @@ public abstract class AnnotationsClassParams {
     void initializeResultMapTemplate() {
         this.result = new HashMap<>();
         this.initializeFields();
-        this.reduceUselessFields();
+        this.reduceUselessDefaultFields();
     }
 
     abstract void initializeFields();
 
-    void reduceUselessFields() {
+    void reduceUselessDefaultFields() {
         Iterator<Map.Entry<String, Object>> i = result.entrySet().iterator();
         while (i.hasNext()) {
             Map.Entry<String, Object> entry = i.next();

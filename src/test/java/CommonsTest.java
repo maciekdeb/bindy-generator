@@ -31,11 +31,11 @@ public class CommonsTest {
         System.out.println(Utils.prepareFieldNames(false, ",", "id, price, product name"));
     }
 
-    @Test
-    public void testAnnotationProperty(){
-        String params = "length(10),trim";
-        System.out.println(((AnnotationsPropertyParams) pos -> null).getValue(params, "trim"));
-    }
+//    @Test
+//    public void testAnnotationProperty(){
+//        String params = "length(10),trim";
+//        System.out.println(((AnnotationsPropertyParams) pos -> null).getValue(params, "trim"));
+//    }
 
     @Test
     public void testAnnotation(){
