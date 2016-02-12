@@ -12,6 +12,7 @@ import pl.lodz.p.params.type.FixedLengthClassParams;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by maciek on 06/01/16.
@@ -86,8 +87,12 @@ public class MainParams {
 
     public Map<String, Object> getAnnotationMembers(Class aClass, int pos) {
         if (DataField.class.equals(aClass)) {
-            return new DataFieldPropertyParams().getAnnotationsMembers(fields.get(pos), pos);
+            return new DataFieldPropertyParams().getAnnotationsMembers(fields.get(String.valueOf(pos)), pos);
         } else return null;
+    }
+
+    public Set<String> getFields(){
+        return fields.keySet();
     }
 
     public JCommander getJCommander() {

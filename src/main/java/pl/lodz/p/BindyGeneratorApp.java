@@ -2,6 +2,7 @@ package pl.lodz.p;
 
 import org.apache.camel.dataformat.bindy.annotation.CsvRecord;
 import org.apache.camel.dataformat.bindy.annotation.FixedLengthRecord;
+import org.apache.camel.dataformat.bindy.format.LongFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.lodz.p.builder.JavaDomainBuilder;
@@ -26,7 +27,7 @@ public class BindyGeneratorApp {
         generate(args);
     }
 
-    public static void generate(String[] args) throws Exception{
+    public static void generate(String[] args) throws Exception {
         MainParams jc = null;
         try {
             jc = new MainParams(args);
@@ -40,7 +41,7 @@ public class BindyGeneratorApp {
             if (MainParams.CSV_PARAM.equals(command)) {
                 LOGGER.info("Started generating csv model");
                 classNode = new JavaDomainBuilder(jc, CsvRecord.class);
-                List<String> fieldsNames = Utils.prepareFieldNames(jc.csv.skipFirstLine, jc.csv.separator, firstLine);
+                List<String> fieldsNames = Utils.prepareFieldNamesCsv(jc.csv.skipFirstLine, jc.csv.separator, firstLine);
                 for (int i = 0; i < fieldsNames.size(); i++) {
                     Class type = InferenceUtils.inferFieldType(lines, jc.csv.skipFirstLine, jc.csv.separator, i);
                     classNode.withField(type, (i + 1), fieldsNames.get(i));
@@ -48,7 +49,9 @@ public class BindyGeneratorApp {
             } else if (MainParams.FIXED_PARAM.equals(command)) {
                 LOGGER.info("Started generating fixed length model");
                 classNode = new JavaDomainBuilder(jc, FixedLengthRecord.class);
-
+                for (Long fieldEnumerator : jc.getFields().stream().map(Long::parseLong).collect(Collectors.toList())) {
+                    classNode.withField(String.class, fieldEnumerator.intValue(), Utils.prepareFieldName(fieldEnumerator));
+                }
             }
             Utils.prepareJavaFile(jc.getPackageName(), classNode.build(), jc.path);
             LOGGER.info("New Java class " + jc.getClassNameWithPackage() + " file written in this directory " + jc.path);

@@ -31,6 +31,8 @@ public class AnnotationsFactory {
                     if (value != null) {
                         if (value instanceof String) {
                             builder.addMember(key, "$S", value);
+                        } else if(value instanceof Character){
+                            builder.addMember(key, "'$L'", value);
                         } else {
                             builder.addMember(key, "$L", value);
                         }

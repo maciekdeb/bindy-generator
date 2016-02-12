@@ -38,19 +38,26 @@ public class Utils {
         return WordUtils.uncapitalize(name);
     }
 
-    public static List<String> prepareFieldNames(boolean skipFirstLine, String separator, String line) {
-        final String defaultFieldNamePrefix = "field";
+    public static List<String> prepareFieldNamesCsv(boolean skipFirstLine, String separator, String line) {
         Stream<String> stream = Arrays.stream(line.split(separator));
         if (skipFirstLine) {
             return stream
                     .map(Utils::prepareJavaConventionName)
                     .collect(Collectors.toList());
         } else {
-            return LongStream
-                    .rangeClosed(1, stream.count())
-                    .mapToObj(i -> String.format("%s%s", defaultFieldNamePrefix, i))
-                    .collect(Collectors.toList());
+            return prepareFieldsNamesWithCounter(stream.count());
         }
+    }
+
+    public static List<String> prepareFieldsNamesWithCounter(long topRange){
+        return LongStream
+                .rangeClosed(1, topRange)
+                .mapToObj(Utils::prepareFieldName)
+                .collect(Collectors.toList());
+    }
+
+    public static String prepareFieldName(long enumerator) {
+        return String.format("field%s", enumerator);
     }
 
     public static void prepareJavaFile(String packageName, TypeSpec classNode, String path) throws IOException {

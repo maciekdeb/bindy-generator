@@ -77,10 +77,14 @@ public abstract class AnnotationsPropertyParams {
             if (temp != null) {
                 if (value instanceof String) {
                     result.put(key, temp);
+                } else if (value instanceof Character) {
+                    result.put(key, temp.charAt(0));
                 } else if (value instanceof Number) {
                     result.put(key, Integer.parseInt(temp));
                 } else if (value instanceof Boolean) {
                     result.put(key, Boolean.valueOf(temp));
+                } else {
+                    result.put(key, temp);
                 }
             }
         }

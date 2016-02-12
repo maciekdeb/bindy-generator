@@ -1,7 +1,6 @@
 import junit.framework.Assert;
 import org.apache.camel.dataformat.bindy.annotation.CsvRecord;
 import org.junit.Test;
-import pl.lodz.p.params.property.AnnotationsPropertyParams;
 import pl.lodz.p.util.Utils;
 
 /**
@@ -23,12 +22,12 @@ public class CommonsTest {
 
     @Test
     public void testFieldGeneratorWithLineSkipped() throws Exception {
-        System.out.println(Utils.prepareFieldNames(true, ",", "12, 1.2, shoe"));
+        System.out.println(Utils.prepareFieldNamesCsv(true, ",", "12, 1.2, shoe"));
     }
 
     @Test
     public void testFieldGeneratorWithLines() throws Exception {
-        System.out.println(Utils.prepareFieldNames(false, ",", "id, price, product name"));
+        System.out.println(Utils.prepareFieldNamesCsv(false, ",", "id, price, product name"));
     }
 
 //    @Test
