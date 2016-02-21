@@ -82,5 +82,5 @@ Usage: bindy-generator -f [file name] -c [class name] [options] [command {fixed,
 ```
 Examples
 ```
--f order.csv -c com.shop.Order -field1=pos(1),length(23) -field3=pos(4),length(1),trim csv
+-f order.csv -c com.shop.Order -field1=pos(1),length(23) -field3=pos(4),length(1),trim csv --separator ,
 ```
